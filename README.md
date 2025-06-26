@@ -76,3 +76,11 @@ AWS_REGION=sua_regiao
 ```bash
 pip install boto3 python-dotenv]
 python put_item.py
+
+
+# AWS Estudos
+
+Este projeto faz parte dos estudos gerais do repositório principal [estudosaws](https://github.com/kauandecesaro/estudosaws).
+
+Você pode acessar o README principal aqui:  
+[README do estudosaws](https://github.com/kauandecesaro/estudosaws/blob/main/README.md)
