@@ -51,3 +51,28 @@ Licença
 Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para detalhes.
 
 Feito por Kauan de Césaro.
+
+
+
+# Estudos AWS DynamoDB com Python
+
+Este repositório contém scripts para realizar operações básicas (CRUD) no Amazon DynamoDB usando Python e boto3.
+
+## O que tem aqui?
+
+- Inserção de itens (`put_item.py`)
+- Busca de itens (`buscar_upload.py`)
+- Atualização de itens (`update_item.py`)
+- Exclusão de itens (`delete_item.py`)
+
+## Como usar?
+
+1. Configure suas credenciais AWS no arquivo `.env`:
+AWS_ACCESS_KEY_ID=seu_access_key_id
+AWS_SECRET_ACCESS_KEY=seu_secret_access_key
+AWS_REGION=sua_regiao
+2. Instale as dependências:
+
+```bash
+pip install boto3 python-dotenv]
+python put_item.py
