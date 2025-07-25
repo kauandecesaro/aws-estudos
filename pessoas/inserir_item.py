@@ -1,37 +1,31 @@
+import json
 import boto3
 import os
-from dotenv import load_dotenv
+from datetime import datetime
 
-# Carrega variáveis do .env
-load_dotenv()
+dynamodb = boto3.resource('dynamodb')
+tabela = dynamodb.Table(os.environ['NOME_TABELA'])
 
-aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
-aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-aws_region = os.getenv("AWS_REGION")
+def lambda_handler(event, context):
+    try:
+        corpo = json.loads(event['body'])
+        nome = corpo['nome']
+        idade = corpo['idade']
 
-# Cliente do DynamoDB
-dynamodb = boto3.resource(
-    "dynamodb",
-    aws_access_key_id=aws_access_key,
-    aws_secret_access_key=aws_secret_key,
-    region_name=aws_region
-)
+        resposta = tabela.put_item(
+            Item={
+                'nome': nome,
+                'idade': idade,
+                'criado_em': datetime.utcnow().isoformat()
+            }
+        )
 
-# Tabela
-tabela = dynamodb.Table("Pessoas")
-
-# Dados a serem inseridos
-item = {
-    "pessoa_id": "1",               # Chave primária
-    "nome": "Kauan de Césaro",
-    "idade": 25,
-    "email": "kauan@example.com"
-}
-
-# Inserção
-try:
-    tabela.put_item(Item=item)
-    print("✅ Item inserido com sucesso!")
-
-except Exception as e:
-    print("❌ Erro ao inserir item:", e)
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'message': 'Item inserido com sucesso!'})
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
+        }
